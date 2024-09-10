@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { atlantidaApi } from "../../services";
 import iconPin from "../../assets/images/pin.png";
+import noImage from "../../assets/images/no-image.png";
+// import imagemModal from "../../assets/images/image-modal.png";
+import {
+  IconStarFilled,
+} from "@tabler/icons-react";
+import styles from "./Map.module.css";
+
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
@@ -71,16 +78,25 @@ const MapComponent = () => {
             }}
             onCloseClick={() => setSelectedSpot(null)}
           >
-            <div style={{ maxWidth: "200px" }}>
+            <div style={{ maxWidth: "250px" }}>
               {selectedSpot.image && (
                 <img
-                  src={`data:${selectedSpot.image.contentType};base64,${selectedSpot.image.data}`}
+                  src={selectedSpot?.image?.data ? `data:${selectedSpot?.image?.contentType};base64,${selectedSpot?.image.data}` : noImage}
                   alt={selectedSpot.name}
-                  style={{ width: "100%", height: "auto", borderRadius: "4px" }}
+                  style={{ width: "100%", height: "128px", objectFit: "cover", borderRadius: "8px" }}
                 />
               )}
-              <h3>{selectedSpot.name}</h3>
-              <p>{selectedSpot.description}</p>
+
+              <div className={styles.header_result}>
+                <h3>{selectedSpot.name}</h3>
+                <p>
+                  <IconStarFilled size={18} color="#007FFF" />
+                  {(selectedSpot.averageRating ?? 0).toFixed(1)}
+                </p>
+              </div>
+              <div className={styles.description_result}>
+                <p>{selectedSpot.description}</p>
+              </div>
             </div>
           </InfoWindow>
         )}

@@ -1,0 +1,30 @@
+.header_result {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header_result h3 {
+  font-size: 16px;
+  font-weight: var(--medium);
+  color: var(--dark-blue-title-font);
+}
+
+.header_result p {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: var(--medium);
+  color: var(--dark-blue-title-font);
+}
+
+.description_result {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: var(--regular);
+  color: var(--dark-gray);
+  text-align: justify;
+}
