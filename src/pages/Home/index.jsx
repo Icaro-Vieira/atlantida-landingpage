@@ -4,6 +4,12 @@ import {
   IconArrowNarrowDown,
   IconArrowNarrowUp,
   IconSearch,
+  IconStarFilled,
+  IconScubaDiving,
+  IconMapPin,
+  IconDroplet,
+  IconFish,
+  IconMessage,
 } from "@tabler/icons-react";
 import logoAtlantida from "../../assets/illustrations/logo-atlantida.svg";
 import logoAtlantidaFooter from "../../assets/illustrations/logo-atlantida-white.svg";
@@ -21,13 +27,16 @@ import imgSmArticle2 from "../../assets/images/img-sm-article-2.jpg";
 import imgSmArticle3 from "../../assets/images/img-sm-article-3.jpg";
 
 import Map from "../../components/Map";
+import ReactStars from "react-rating-stars-component";
 import styles from "./Home.module.css";
 import { atlantidaApi } from "../../services";
+import { format, parseISO } from 'date-fns';
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [divingSpots, setDivingSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
+  const [userNames, setUserNames] = useState({});
   const [comments, setComments] = useState([]);
   const [tabIndex, setTabIndex] = useState(0); // Estado para controlar a aba ativa
 
@@ -58,6 +67,29 @@ function Home() {
     }
   };
 
+  const fetchUserById = async (userId) => {
+    try {
+      const response = await atlantidaApi.get(`/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar usuário:", error);
+      throw error;
+    }
+  };
+
+  const fetchUserName = async (userId) => {
+    if (userId && !userNames[userId]) {
+      try {
+        const userData = await fetchUserById(userId);
+        // Concatena firstName e lastName
+        const fullName = `${userData.firstName} ${userData.lastName}`;
+        setUserNames((prevNames) => ({ ...prevNames, [userId]: fullName }));
+      } catch (error) {
+        console.error('Erro ao buscar nome do usuário:', error);
+      }
+    }
+  };
+
   const handleSearch = () => {
     if (searchTerm) {
       if (!isNaN(searchTerm)) {
@@ -84,6 +116,12 @@ function Home() {
     }
   }, [selectedSpot]);
 
+  useEffect(() => {
+    comments.forEach((comment) => {
+      fetchUserName(comment.userId);
+    });
+  }, [comments]);
+
   return (
     <>
       <nav className={styles.navbar}>
@@ -96,9 +134,9 @@ function Home() {
           <a href="#app">Baixar aplicativo</a>
           <a href="#mergulho-responsavel">Mergulho responsável</a>
         </div>
-        <Link to="/" className={styles.btn_login}>
+        <a href="#app" className={styles.btn_login}>
           DOWNLOAD DO APP
-        </Link>
+        </a>
       </nav>
 
       <div className={styles.hero_section} id="home">
@@ -117,9 +155,9 @@ function Home() {
             de mergulho e compartilhe suas experiências.
           </span>
 
-          <Link to="/" className={styles.btn_start}>
+          <a href="#app" className={styles.btn_start}>
             COMECE SUA AVENTURA AGORA!
-          </Link>
+          </a>
 
           <p className={styles.tag}>
             <IconArrowNarrowDown size={20} />
@@ -142,7 +180,7 @@ function Home() {
             <input
               className={styles.input_search}
               type="text"
-              placeholder="Pesquise pelo nome ou nivel de dificuldade de 0 a 5"
+              placeholder="Informe o nome do local. Ex: Ilha Bela"
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -176,11 +214,24 @@ function Home() {
                           alt={spot.name}
                         />
                         <div className={styles.spot_info_data}>
-                          <h3>{spot.name}</h3>
-                          <p className={styles.spot_p}>
-                            Avaliações: {spot.averageRating}
-                          </p>
-                          <p className={styles.spot_p}>{spot.description}</p>
+                          <div className={styles.spot_info_data_header}>
+                            <h3>{spot.name}</h3>
+                            <div className={styles.rating_average}>
+                              <p className={styles.spot_p_average}>{(spot.averageRating ?? 0).toFixed(1)}</p>
+                              <div className={styles.stars}>
+                                <ReactStars
+                                  count={5}
+                                  value={spot.averageRating}
+                                  size={24}
+                                  isHalf={true}
+                                  edit={false}
+                                  activeColor="#007FFF"
+                                />
+                              </div>
+                              <p className={styles.spot_comments}>({spot.numberOfComments})</p>
+                            </div>
+                          </div>
+                          <p className={styles.spot_p_description}>{spot.description}</p>
                         </div>
                       </div>
                     </div>
@@ -200,55 +251,120 @@ function Home() {
                           alt={selectedSpot.name}
                         />
 
-                        <Tabs value={tabIndex} onChange={handleTabChange} className={styles.tabs}>
-                          <Tab label="Informações" className={styles.tab} />
-                          <Tab label="Avaliações" className={styles.tab} />
+                        <Tabs value={tabIndex} onChange={handleTabChange} variant="fullWidth">
+                          <Tab label="Informações" />
+                          <Tab label="Avaliações" />
                         </Tabs>
 
-                        <div>
-                          <h2>{selectedSpot.name}</h2>
-                          <p>
-                            <strong>Avaliação Média:</strong>{" "}
-                            {selectedSpot.averageRating}
-                          </p>
+                        <div className={styles.selected_info}>
+
+                          <div className={styles.selected_info_header}>
+                            <h2>{selectedSpot.name}</h2>
+                            <p className={styles.selected_info_p}>
+                              <IconStarFilled size={20} color="#007FFF" />
+                              {(selectedSpot.averageRating ?? 0).toFixed(1)}
+                            </p>
+                          </div>
+
+                          <div className={styles.selected_info_description}>
+                            <p>{selectedSpot.description}</p>
+                          </div>
                         </div>
-                        <p>
-                          <strong>Descrição:</strong> {selectedSpot.description}
-                        </p>
-                        <p>
-                          <strong>Corpo da Água:</strong>{" "}
-                          {selectedSpot.waterBody}
-                        </p>
-                        <p>
-                          <strong>Visibilidade:</strong>{" "}
-                          {selectedSpot.visibility}
-                        </p>
-                        <p>
-                          <strong>Nível de Dificuldade Médio:</strong>{" "}
-                          {selectedSpot.averageDifficulty}
-                        </p>
-                        <p>
-                          <strong>Número de Comentários:</strong>{" "}
-                          {selectedSpot.numberOfComments}
-                        </p>
+
+                        <div className={styles.box_details}>
+                          <div className={styles.details}>
+                            <p><IconMapPin size={24} color="#007FFF" /> Coordenadas</p>
+                            <span>{selectedSpot.location.coordinates[0]}, {selectedSpot.location.coordinates[1]}</span>
+                          </div>
+
+                          <div className={styles.divisor}></div>
+
+                          <div className={styles.details}>
+                            <p><IconDroplet size={24} color="#007FFF" /> Corpo da Água</p>
+                            <span>{selectedSpot.waterBody ?? "N/A"}</span>
+                          </div>
+
+                          <div className={styles.divisor}></div>
+
+                          <div className={styles.details}>
+                            <p><IconFish size={24} color="#007FFF" /> Visibilidade</p>
+                            <span>{selectedSpot.visibility ?? "N/A"}</span>
+                          </div>
+
+                          <div className={styles.divisor}></div>
+
+                          <div className={styles.details}>
+                            <p><IconScubaDiving size={24} color="#007FFF" /> Nível de Mergulho</p>
+                            <span>{selectedSpot.averageDifficulty ?? "N/A"}</span>
+                          </div>
+                        </div>
                       </div>
+
                     )}
 
                     {tabIndex === 1 && (
                       <div>
+                        <img
+                          src={
+                            selectedSpot?.image?.data
+                              ? `data:${selectedSpot?.image?.contentType};base64,${selectedSpot?.image?.data}`
+                              : noImage
+                          }
+                          alt={selectedSpot.name}
+                        />
+                        <Tabs value={tabIndex} onChange={handleTabChange} variant="fullWidth">
+                          <Tab label="Informações" />
+                          <Tab label="Avaliações" />
+                        </Tabs>
+
                         {comments.length > 0 ? (
                           comments.map((comment) => (
                             <div key={comment._id} className={styles.comment}>
-                              <p>
-                                <strong>
-                                  {comment.firstName} {comment.lastName}:
-                                </strong>{" "}
+                              <p className={styles.info_name}>{userNames[comment.userId] || 'Carregando...'}</p>
+                              <div className={styles.info_comment}>
+                                <p className={styles.info_rating_star}>
+                                  {(comment.rating ?? 0).toFixed(1)}
+                                  <ReactStars
+                                    className={styles.stars}
+                                    count={5}
+                                    value={comment.rating}
+                                    size={24}
+                                    isHalf={true}
+                                    edit={false}
+                                    activeColor="#007FFF"
+                                  />
+                                </p>
+
+                                <p className={styles.info_comment_data}>
+                                  {format(parseISO(comment.createdDate), 'dd/MM/yyyy')}
+                                </p>
+                              </div>
+
+                              <p className={styles.info_comment_comment}>
                                 {comment.comment}
                               </p>
+
+                              {/* Exibe as fotos */}
+                              <div className={styles.photos}>
+                                {comment.photos && comment.photos.length > 0 && comment.photos.map((photo, index) => (
+                                  <img
+                                    className={styles.info_comment_img}
+                                    key={index}
+                                    src={`data:${photo.contentType};base64,${photo.data}`}
+                                    alt="Foto do mergulho"
+                                  />
+                                ))}
+                              </div>
+
+                              <div className={styles.divisor_comments}></div>
+
                             </div>
                           ))
                         ) : (
-                          <p>Sem comentários para este ponto de mergulho.</p>
+                          <div className={styles.no_comment}>
+                            <IconMessage size={64} color="#777777" />
+                            <p>Sem comentários para este ponto de mergulho.</p>
+                          </div>
                         )}
                       </div>
                     )}
