@@ -128,7 +128,7 @@ function Home() {
           <a href="#app">Baixar aplicativo</a>
           <a href="#mergulho-responsavel">Mergulho responsável</a>
         </div>
-        <a href="#app" className={styles.btn_login}>
+        <a href="../../assets/app/Atlântida-1.1.0-beta.apk" className={styles.btn_login} download>
           DOWNLOAD DO APP
         </a>
       </nav>
@@ -376,7 +376,7 @@ function Home() {
       <div className={styles.section_2} id="app">
         <div className={styles.text_container_2}>
           <span className={styles.text_container_span}>
-            APLICATIVO IOS E ANDROID
+            APLICATIVO ANDROID
           </span>
           <h1 className={styles.text_container_h1}>
             Todos os seus mergulhos <br />a um toque de distância
@@ -389,10 +389,7 @@ function Home() {
         </div>
 
         <div className={styles.download_buttons}>
-          <a href="#" className={styles.btn_download}>
-            <img src={btnAppleStore} alt="Faça o download pela Apple Store" />
-          </a>
-          <a href="#" className={styles.btn_download}>
+          <a href="../../assets/app/Atlântida-1.1.0-beta.apk" className={styles.btn_download} download>
             <img
               src={btnGooglePlay}
               alt="Faça o download pela Google Play Store"
@@ -408,7 +405,7 @@ function Home() {
             <div className={styles.content_info_box}>
               <p className={styles.title_box}>Baixe o aplicativo</p>
               <p className={styles.description_box}>
-                É gratuito. Baixe pela Apple Store ou <br /> Google Play.
+                É gratuito. Baixe pelo nosso site!
               </p>
             </div>
           </div>
