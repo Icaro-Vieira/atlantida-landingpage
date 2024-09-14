@@ -6,16 +6,16 @@ import styles from "./Terms.module.css";
 import { IconArrowNarrowUp } from "@tabler/icons-react";
 
 export function Terms() {
- 
+
   return (
     <>
       <nav className={styles.navbar} id="nav">
         <Link to="/">
           <img src={logoAtlantida} alt="" />
         </Link>
-        <Link to="/" className={styles.btn_login}>
+        <a href="../../assets/app/Atlântida-1.1.0-beta.apk" className={styles.btn_login} download>
           DOWNLOAD DO APP
-        </Link>
+        </a>
       </nav>
 
       <div className={styles.hero_section} id="home">
@@ -147,7 +147,9 @@ export function Terms() {
           <div className={styles.line_divider}></div>
           <div className={styles.footer_text}>
             <p>Copyright <span className={styles.color_blue}>©</span> 2024 - Atlântida App Mergulhos - Todos os direitos reservados</p>
-
+            <Link className={styles.terms} to="/team">
+              Conheça nossa equipe
+            </Link>
             <Link className={styles.terms} to="/terms">Termos de uso</Link>
           </div>
         </div>

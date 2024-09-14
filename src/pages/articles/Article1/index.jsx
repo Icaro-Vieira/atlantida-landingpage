@@ -6,7 +6,7 @@ import styles from "./Article1.module.css";
 import { IconArrowNarrowUp } from "@tabler/icons-react";
 
 export function Article1() {
- 
+
 
   return (
     <>
@@ -14,9 +14,9 @@ export function Article1() {
         <Link to="/">
           <img src={logoAtlantida} alt="" />
         </Link>
-        <Link to="/" className={styles.btn_login}>
+        <a href="../../assets/app/Atlântida-1.1.0-beta.apk" className={styles.btn_login} download>
           DOWNLOAD DO APP
-        </Link>
+        </a>
       </nav>
 
       <div className={styles.read_article}>

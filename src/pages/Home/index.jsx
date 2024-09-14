@@ -10,7 +10,6 @@ import {
   IconDroplet,
   IconFish,
   IconMessage,
-  IconDownload,
 } from "@tabler/icons-react";
 import logoAtlantida from "../../assets/illustrations/logo-atlantida.svg";
 import logoAtlantidaFooter from "../../assets/illustrations/logo-atlantida-white.svg";

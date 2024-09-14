@@ -12,7 +12,7 @@ import styles from "./Team.module.css";
 import { IconArrowNarrowUp, IconLink } from "@tabler/icons-react";
 
 export function Terms() {
- 
+
 
   return (
     <>
@@ -20,9 +20,9 @@ export function Terms() {
         <Link to="/">
           <img src={logoAtlantida} alt="" />
         </Link>
-        <Link to="/" className={styles.btn_login}>
+        <a href="../../assets/app/Atlântida-1.1.0-beta.apk" className={styles.btn_login} download>
           DOWNLOAD DO APP
-        </Link>
+        </a>
       </nav>
 
       <div className={styles.read_article}>
@@ -134,6 +134,10 @@ export function Terms() {
               Copyright <span className={styles.color_blue}>©</span> 2024 -
               Atlântida App Mergulhos - Todos os direitos reservados
             </p>
+
+            <Link className={styles.terms} to="/team">
+              Conheça nossa equipe
+            </Link>
 
             <Link className={styles.terms} to="/terms">
               Termos de uso
