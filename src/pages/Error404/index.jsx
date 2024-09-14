@@ -1,7 +1,5 @@
 import styles from "./Error404.module.css"
 import { Link } from "react-router-dom"
-
-// Import Images
 import illustration from "../../assets/illustrations/illustration-errorpage.svg"
 import leftCoral from "../../assets/illustrations/left-corals.svg"
 import rightCoralsi from "../../assets/illustrations/right-corals.svg"

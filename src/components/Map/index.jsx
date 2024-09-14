@@ -3,7 +3,6 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/ap
 import { atlantidaApi } from "../../services";
 import iconPin from "../../assets/images/pin.png";
 import noImage from "../../assets/images/no-image.png";
-// import imagemModal from "../../assets/images/image-modal.png";
 import {
   IconStarFilled,
 } from "@tabler/icons-react";

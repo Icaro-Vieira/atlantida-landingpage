@@ -38,9 +38,9 @@ function Home() {
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [userNames, setUserNames] = useState({});
   const [comments, setComments] = useState([]);
-  const [tabIndex, setTabIndex] = useState(0); // Estado para controlar a aba ativa
+  const [tabIndex, setTabIndex] = useState(0);
 
- 
+
 
   const fetchDivingSpots = async (endpoint, param) => {
     try {
@@ -76,7 +76,6 @@ function Home() {
     if (userId && !userNames[userId]) {
       try {
         const userData = await fetchUserById(userId);
-        // Concatena firstName e lastName
         const fullName = `${userData.firstName} ${userData.lastName}`;
         setUserNames((prevNames) => ({ ...prevNames, [userId]: fullName }));
       } catch (error) {
@@ -93,7 +92,7 @@ function Home() {
         fetchDivingSpots("divingSpotsByName", searchTerm);
       }
     } else {
-      setDivingSpots([]); // Limpar os resultados se o termo de busca estiver vazio
+      setDivingSpots([]);
     }
   };
 
