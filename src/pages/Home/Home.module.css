@@ -712,6 +712,13 @@ footer {
   align-items: center;
 }
 
+.box_center_download {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .download_buttons {
   flex-direction: row;
   gap: 16px;
@@ -730,10 +737,12 @@ footer {
 /* ====================================== MEDIA QUERYS ========================================= */
 
 @media (max-width: 1366px) {
-  
+
   html {
-    scroll-behavior: auto; /* This could override smooth scrolling */
+    scroll-behavior: auto;
+    /* This could override smooth scrolling */
   }
+
   .logo_and_backtotop,
   .copyright,
   .navbar {

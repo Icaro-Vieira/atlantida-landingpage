@@ -10,11 +10,13 @@ import {
   IconDroplet,
   IconFish,
   IconMessage,
+  IconDownload,
 } from "@tabler/icons-react";
 import logoAtlantida from "../../assets/illustrations/logo-atlantida.svg";
 import logoAtlantidaFooter from "../../assets/illustrations/logo-atlantida-white.svg";
-import btnGooglePlay from "../../assets/illustrations/btn-google-play.svg";
-import btnAppleStore from "../../assets/illustrations/btn-apple-store.svg";
+// import btnGooglePlay from "../../assets/illustrations/btn-google-play.svg";
+// import btnAppleStore from "../../assets/illustrations/btn-apple-store.svg";
+import btnDownload from "../../assets/illustrations/download-button-site.svg";
 import imageBackground from "../../assets/images/image-background.jpg";
 import imageCelular from "../../assets/images/imagem-celular.png";
 import noImage from "../../assets/images/no-image.png";
@@ -384,18 +386,18 @@ function Home() {
           </h1>
         </div>
 
-        <div className={styles.image_celular}>
-          <img src={imageCelular} alt="Imagem do Aplicativo" />
+        <div className={styles.box_center_download}>
+          <div className={styles.image_celular}>
+            <img src={imageCelular} alt="Imagem do Aplicativo" />
+          </div>
+
+          <div className={styles.download_buttons}>
+            <a href="../../assets/app/Atlântida-1.1.0-beta.apk" className={styles.btn_download} download>
+              <img src={btnDownload} />
+            </a>
+          </div>
         </div>
 
-        <div className={styles.download_buttons}>
-          <a href="../../assets/app/Atlântida-1.1.0-beta.apk" className={styles.btn_download} download>
-            <img
-              src={btnGooglePlay}
-              alt="Faça o download pela Google Play Store"
-            />
-          </a>
-        </div>
 
         <div className={styles.info_box}>
           <div className={styles.info_box_fill}>
