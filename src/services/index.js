@@ -3,7 +3,7 @@ import axios from 'axios';
 const token = localStorage.getItem("token");
 
 export const atlantidaApi = axios.create({
-  baseURL: 'https://atlanticamergulhos-aqgvcwhwg5bjdpff.brazilsouth-01.azurewebsites.net/api',
+  baseURL: 'http://201.23.16.247:3000/api',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
