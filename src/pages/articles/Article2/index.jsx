@@ -6,16 +6,11 @@ import styles from "./Article2.module.css";
 import { IconArrowNarrowUp } from "@tabler/icons-react";
 
 export function Article2() {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+ 
 
   return (
     <>
-      <nav className={styles.navbar}>
+      <nav className={styles.navbar} id="nav">
         <Link to="/">
           <img src={logoAtlantida} alt="" />
         </Link>
@@ -165,10 +160,10 @@ export function Article2() {
       <footer>
         <div className={styles.logo_and_backtotop}>
           <img src={logoAtlantidaFooter} />
-          <p onClick={scrollToTop} className={styles.footer_p}>
+          <a href="#nav" className={styles.footer_p}>
             <IconArrowNarrowUp size={20} />
             Voltar ao topo
-          </p>
+          </a>
         </div>
 
         <div className={styles.copyright}>

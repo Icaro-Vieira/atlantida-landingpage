@@ -12,16 +12,11 @@ import styles from "./Team.module.css";
 import { IconArrowNarrowUp, IconLink } from "@tabler/icons-react";
 
 export function Terms() {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+ 
 
   return (
     <>
-      <nav className={styles.navbar}>
+      <nav className={styles.navbar} id="nav">
         <Link to="/">
           <img src={logoAtlantida} alt="" />
         </Link>
@@ -126,10 +121,10 @@ export function Terms() {
       <footer>
         <div className={styles.logo_and_backtotop}>
           <img src={logoAtlantidaFooter} />
-          <p onClick={scrollToTop} className={styles.footer_p}>
+          <a href="#nav" className={styles.footer_p}>
             <IconArrowNarrowUp size={20} />
             Voltar ao topo
-          </p>
+          </a>
         </div>
 
         <div className={styles.copyright}>

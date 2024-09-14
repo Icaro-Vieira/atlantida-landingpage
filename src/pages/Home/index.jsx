@@ -40,12 +40,7 @@ function Home() {
   const [comments, setComments] = useState([]);
   const [tabIndex, setTabIndex] = useState(0); // Estado para controlar a aba ativa
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+ 
 
   const fetchDivingSpots = async (endpoint, param) => {
     try {
@@ -124,7 +119,7 @@ function Home() {
 
   return (
     <>
-      <nav className={styles.navbar}>
+      <nav className={styles.navbar} id="nav">
         <Link to="/">
           <img src={logoAtlantida} alt="Logo Atlântida" />
         </Link>
@@ -523,10 +518,10 @@ function Home() {
       <footer>
         <div className={styles.logo_and_backtotop}>
           <img src={logoAtlantidaFooter} alt="" />
-          <p onClick={scrollToTop} className={styles.footer_p}>
+          <a href="#nav" className={styles.footer_p}>
             <IconArrowNarrowUp size={20} />
             Voltar ao topo
-          </p>
+          </a>
         </div>
 
         <div className={styles.copyright}>
