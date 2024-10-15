@@ -7,6 +7,5 @@ export const atlantidaApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
-  },
-  mode: "no-cors ",
+  }
 });
